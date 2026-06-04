@@ -1,21 +1,15 @@
 class Solution {
-    public int search(int[] nums, int target) {
-        int left=0;
-        int right=nums.length-1;
-        if(right==0 && nums[0]==target)return 0;
-        while(left<=right){
-            int mid=left+(right-left)/2;
-            if(nums[mid]==target)return mid;
-            else{
-                if(nums[mid]>target){
-                    right--;
-                }
-                else{
-                    left++;
-                }
-            }
+    public int bn(int[] nums,int l,int r,int target){
+        if(l<r){
+            int m=l+(r-l)/2;
+            if(nums[m]==target) return m;
+            else if(nums[m]<target) return bn(nums,m+1,r,target);
+            else return bn(nums,l,m,target);
         }
         return -1;
-    
+    }
+    public int search(int[] nums, int target) {
+        if(nums.length==0) return 0;
+        return bn(nums,0,nums.length,target);
     }
 }
