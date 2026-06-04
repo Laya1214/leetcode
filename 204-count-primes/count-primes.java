@@ -1,20 +1,34 @@
 class Solution {
     public int countPrimes(int n) {
-        boolean[] isPrime = new boolean[n+2];
-        Arrays.fill(isPrime, true);
-        isPrime[0] = false;
-        isPrime[1] = false;
-        int count=0;
-        for (int p = 2; p * p <= n; p++) {
-            if (isPrime[p]) {
-                for (int i = p * p; i <= n; i += p) {
-                    isPrime[i] = false;
+        // Base case: no primes strictly less than 2
+        if (n <= 2) {
+            return 0;
+        }
+
+        // boolean array defaults to false
+        // false will represent "prime", true will represent "composite"
+        // This saves time because we do not need to fill the array with true initially
+        boolean[] isComposite = new boolean[n];
+        int count = 0;
+
+        // Loop up to the square root of n
+        int limit = (int) Math.sqrt(n);
+        for (int i = 2; i <= limit; i++) {
+            if (!isComposite[i]) {
+                // Mark multiples of i as composite, starting from i * i
+                for (int j = i * i; j < n; j += i) {
+                    isComposite[j] = true;
                 }
             }
         }
-        for(int i=2;i<n;i++){
-            if(isPrime[i])count++;
+
+        // Count how many numbers remain unmarked (false) from 2 to n-1
+        for (int i = 2; i < n; i++) {
+            if (!isComposite[i]) {
+                count++;
+            }
         }
+
         return count;
     }
 }
