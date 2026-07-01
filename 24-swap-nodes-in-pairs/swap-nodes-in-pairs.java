@@ -13,30 +13,16 @@ class Solution {
         if (head == null ) return head;
         ListNode dummy=new ListNode(0);
         dummy.next=head;
-        ListNode gprev=dummy;
-        while(true){
-            ListNode kth=getk(gprev,2);
-            if (kth == null) break;
-            ListNode gnext=kth.next;
-            ListNode prev=kth.next;
-            ListNode cur=gprev.next;
-            while(cur!=gnext){
-                ListNode next=cur.next;
-                cur.next=prev;
-                prev=cur;
-                cur=next;
-            }
-            ListNode temp=gprev.next;
-            gprev.next=kth;
-            gprev=temp;
+        ListNode cur=head;
+        ListNode prev=dummy;
+        while(cur!=null && cur.next!=null){
+            ListNode next=cur.next;
+            cur.next=next.next;
+            next.next=cur;
+            prev.next=next;
+            prev=cur;
+            cur=prev.next;
         }
         return dummy.next;
-    }
-    public static ListNode getk(ListNode cur,int k){
-        while(cur!=null && k>0){
-            cur=cur.next;
-            k--;
-        }
-        return cur;
     }
 }
