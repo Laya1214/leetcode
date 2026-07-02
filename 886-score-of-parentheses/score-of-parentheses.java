@@ -7,10 +7,10 @@ class Solution {
                 st.push(0);
             }
             else{
-                int innerScore = st.pop();
-                int outerScore = st.pop();
-                 int currentBlockScore = Math.max(2 * innerScore, 1);
-                 st.push(outerScore + currentBlockScore);
+                int inner = st.pop();
+                int outer = st.pop();
+                 int cur = Math.max(2 * inner, 1);
+                 st.push(outer + cur);
             }
         }
         return st.pop();
