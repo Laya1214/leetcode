@@ -12,7 +12,6 @@ class Solution {
                     st.pop();
                 }
                 else{
-                    
                     c++;
                 }
             }
