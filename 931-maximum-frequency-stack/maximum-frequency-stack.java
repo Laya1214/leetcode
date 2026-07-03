@@ -14,7 +14,7 @@ class FreqStack {
         if(f>maxi){
             maxi=f;
         }
-        freq.putIfAbsent(maxi,new Stack<>());
+        freq.putIfAbsent(f,new Stack<>());
         freq.get(f).push(val);
     }
     
