@@ -23,8 +23,8 @@ class Solution {
             if(root==null)return ar;
             cur+=root.val;
             list.add(root.val);
-            if(root.left==null && root.right==null){
-               if(cur==t) ar.add(new ArrayList<>(list));
+            if(root.left==null && root.right==null && cur==t){
+               ar.add(new ArrayList<>(list));
             }
             preOrder(root.left,cur,ar,list,t);
             preOrder(root.right,cur,ar,list,t);
