@@ -21,8 +21,7 @@ class Solution {
         if(root==null)return 0;
         int cur=0;
         if(gp!=null && (gp.val&1)==0)cur+=root.val;
-        int leftSum=pre(root.left,root,p);
-        int rightSum=pre(root.right,root,p);
-        return cur+leftSum+rightSum;
+        
+        return cur+pre(root.left,root,p)+pre(root.right,root,p);
     }
 }
