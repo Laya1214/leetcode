@@ -24,4 +24,4 @@ class Solution {
         if(val<cur.val)return searchBST(cur.left,val);
         return null;
     }
-}
+} 
