@@ -1,7 +1,8 @@
 class Solution {
     public int countSubstrings(String s) {
         int n=s.length();
-        if (n <= 1) return 1;
+        if(n==0)return 0;
+        if (n == 1) return 1;
         int c=0;
         int dp[][]=new int[n][n];
         for(int[] row:dp){
