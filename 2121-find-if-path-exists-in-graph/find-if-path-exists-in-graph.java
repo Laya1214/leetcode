@@ -21,7 +21,6 @@ class Solution {
                 if(x==destination)return true;
                 
                 for(int neighbour:list[x]){
-                    if(x==destination)return true;
                     if(!v.contains(neighbour)){
                         v.add(neighbour);
                         q.offer(neighbour);
