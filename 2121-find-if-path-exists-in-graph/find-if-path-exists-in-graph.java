@@ -19,7 +19,6 @@ class Solution {
             for(int i=0;i<l;i++){
                 int x=q.poll();
                 if(x==destination)return true;
-                
                 for(int neighbour:list[x]){
                     if(!v.contains(neighbour)){
                         v.add(neighbour);
