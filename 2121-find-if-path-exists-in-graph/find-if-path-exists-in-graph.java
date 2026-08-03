@@ -13,12 +13,13 @@ class Solution {
         Set<Integer> v=new HashSet<>();
         Queue<Integer> q=new LinkedList<>();
         q.offer(source);
+        v.add(source);
         while(!q.isEmpty()){
             int l=q.size();
             for(int i=0;i<l;i++){
                 int x=q.poll();
                 if(x==destination)return true;
-                v.add(x);
+                
                 for(int neighbour:list[x]){
                     if(x==destination)return true;
                     if(!v.contains(neighbour)){
