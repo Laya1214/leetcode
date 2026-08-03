@@ -1,18 +1,4 @@
 class Solution {
-    public static boolean dfs(int c,int d,List<Integer>[] list,Set<Integer> v){
-        if(c==d)return true;
-        if (!v.add(c)) {
-            return false;
-        }
-        for (int neighbor : list[c]) {
-            if (!v.contains(neighbor)) {
-                if (dfs(neighbor, d, list, v)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         List<Integer>[] list=new ArrayList[n];
         for (int i = 0; i < n; i++) {
@@ -25,6 +11,23 @@ class Solution {
             list[v].add(u);
         }
         Set<Integer> v=new HashSet<>();
-        return dfs(source,destination,list,v);
+        Queue<Integer> q=new LinkedList<>();
+        q.offer(source);
+        while(!q.isEmpty()){
+            int l=q.size();
+            for(int i=0;i<l;i++){
+                int x=q.poll();
+                if(x==destination)return true;
+                v.add(x);
+                for(int neighbour:list[x]){
+                    if(x==destination)return true;
+                    if(!v.contains(neighbour)){
+                        v.add(neighbour);
+                        q.offer(neighbour);
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
