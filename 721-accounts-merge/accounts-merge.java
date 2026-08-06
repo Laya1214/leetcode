@@ -1,68 +1,73 @@
 import java.util.*;
 
-class UnionFind {
-    Map<String, String> parent;
-
-    public UnionFind() {
-        parent = new HashMap<>();
-    }
-
-    public String find(String s) {
-        // Initialize node if it does not exist
-        if (!parent.containsKey(s)) {
-            parent.put(s, s);
-        }
-        // Path compression
-        if (!parent.get(s).equals(s)) {
-            parent.put(s, find(parent.get(s)));
-        }
-        return parent.get(s);
-    }
-
-    public void union(String s1, String s2) {
-        String root1 = find(s1);
-        String root2 = find(s2);
-        if (!root1.equals(root2)) {
-            parent.put(root1, root2);
-        }
-    }
-}
-
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        UnionFind uf = new UnionFind();
+        Map<String, Integer> emailToId = new HashMap<>();
         Map<String, String> emailToName = new HashMap<>();
-
-        // 1. Initialize parents and union emails within the same account
+        int idCounter = 0;
+        
         for (List<String> account : accounts) {
             String name = account.get(0);
-            String firstEmail = account.get(1);
-
             for (int i = 1; i < account.size(); i++) {
-                String currentEmail = account.get(i);
-                emailToName.put(currentEmail, name);
-                uf.union(firstEmail, currentEmail);
+                String email = account.get(i);
+                if (!emailToId.containsKey(email)) {
+                    emailToId.put(email, idCounter++);
+                    emailToName.put(email, name);
+                }
             }
         }
 
-        Map<String, List<String>> mergedGroups = new HashMap<>();
-        for (String email : emailToName.keySet()) {
-            String root = uf.find(email);
+        int[] parent = new int[idCounter];
+        for (int i = 0; i < idCounter; i++) {
+            parent[i] = i;
+        }
+
+        for (List<String> account : accounts) {
+            if (account.size() < 2) continue;
+            int firstEmailId = emailToId.get(account.get(1));
+            for (int i = 2; i < account.size(); i++) {
+                int currentEmailId = emailToId.get(account.get(i));
+                union(parent, firstEmailId, currentEmailId);
+            }
+        }
+
+        Map<Integer, List<String>> mergedGroups = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : emailToId.entrySet()) {
+            String email = entry.getKey();
+            int id = entry.getValue();
+            int root = find(parent, id);
+            
             mergedGroups.computeIfAbsent(root, k -> new ArrayList<>()).add(email);
         }
 
-        
         List<List<String>> result = new ArrayList<>();
-        for (String root : mergedGroups.keySet()) {
-            List<String> emails = mergedGroups.get(root);
-            Collections.sort(emails); 
+        for (Map.Entry<Integer, List<String>> entry : mergedGroups.entrySet()) {
+            List<String> emails = entry.getValue();
+            Collections.sort(emails);
             
-            List<String> mergedAccount = new ArrayList<>();
-            mergedAccount.add(emailToName.get(root)); 
-            mergedAccount.addAll(emails);            
+            String name = emailToName.get(emails.get(0));
+            
+            List<String> mergedAccount = new ArrayList<>(emails.size() + 1);
+            mergedAccount.add(name);
+            mergedAccount.addAll(emails);
             result.add(mergedAccount);
         }
 
         return result;
+    }
+
+    private int find(int[] parent, int i) {
+        if (parent[i] == i) {
+            return i;
+        }
+        return parent[i] = find(parent, parent[i]);
+    }
+
+    private void union(int[] parent, int i, int j) {
+        int rootI = find(parent, i);
+        int rootJ = find(parent, j);
+        if (rootI != rootJ) {
+            parent[rootI] = rootJ;
+        }
     }
 }
