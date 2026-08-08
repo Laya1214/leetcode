@@ -15,7 +15,7 @@ class Solution {
             int[] cur=q.removeFirst();
             int r=cur[0];
             int c=cur[1];
-           if(r==n-1 && c==m-1)return dp[n-1][m-1];
+           //if(r==n-1 && c==m-1)return dp[n-1][m-1];
             for(int[] d:dir){
                 int nr=r+d[0];
                 int nc=c+d[1];
