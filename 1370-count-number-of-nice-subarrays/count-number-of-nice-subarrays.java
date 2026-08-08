@@ -1,14 +1,21 @@
 class Solution {
-    public int numberOfSubarrays(int[] nums, int k) {
+    private static int atmost(int[] nums,int k){
+        if(k<0)return 0;
         int pref=0;
         int res=0;
-        HashMap<Integer,Integer> map=new HashMap<>();
-        map.put(0,1);
+        int j=0;
         for(int i=0;i<nums.length;i++){
             pref+=nums[i]%2;
-            res+=map.getOrDefault(pref-k,0);
-            map.put(pref,map.getOrDefault(pref,0)+1);
+            while(pref>k){
+                pref-=nums[j]%2;
+                j++;
+            }
+            res+=i-j+1;
         }
         return res;
+    }
+    public int numberOfSubarrays(int[] nums, int k) {
+        
+        return atmost(nums,k)-atmost(nums,k-1);
     }
 }
