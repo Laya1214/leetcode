@@ -1,7 +1,7 @@
 class Solution {
     public int missingInteger(int[] nums) {
         int max1=0;int pref=nums[0];
-        int k=0;
+       
         HashSet<Integer> set=new HashSet<>();
         for(int i=0;i<nums.length;i++){
             set.add(nums[i]);
@@ -11,7 +11,7 @@ class Solution {
                 pref+=nums[i];
             }
             else{
-                k=i;
+               
                 break;
             }
         }
