@@ -1,6 +1,6 @@
 class Solution {
-    private static int sum(int n){
-        int d=n;
+    private static int sum(int d){
+        //int d=n;
         int sum=0;
         while(d>0){
             int r=d%10;
@@ -9,8 +9,8 @@ class Solution {
         }
         return sum;
     }
-    private static int product(int n){
-        int d=n;
+    private static int product(int d){
+        //int d=n;
         int p=1;
         while(d>0){
             int r=d%10;
