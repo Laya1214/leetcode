@@ -26,8 +26,7 @@ class Solution {
         }
         int sum=s1-s2;
         int count=9*((c2-c1)/2);
-        if((c1+c2)%2!=0)return true;
-        
+        if(((c1+c2)&1)!=0)return true;
         else{
             if(sum==count)return false;     
         }
