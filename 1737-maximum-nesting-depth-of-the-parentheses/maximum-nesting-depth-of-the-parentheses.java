@@ -11,8 +11,9 @@ class Solution {
                     st.pop();
                 }
             }
-            if(c<st.size()){
-                c=st.size();
+            int si=st.size();
+            if(c<si){
+                c=si;
             }
         }
         return c;
