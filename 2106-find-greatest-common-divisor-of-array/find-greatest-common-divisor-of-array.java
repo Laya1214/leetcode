@@ -12,13 +12,13 @@ class Solution {
                 max=i;
             }
         }
-        int a=max,b=min;
+        
         // using euclidean algorithm-- gcd(a,b)=gcd(b,a%b) until b becomes 0 and the ans will store in a;
-        while(b>0){
-            int temp=a;
-            a=b;
-            b=temp%b;
+        while(min>0){
+            int temp=max;
+            max=min;
+            min=temp%min;
         }
-        return a;
+        return max;
     }
 }
