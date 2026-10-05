@@ -12,11 +12,12 @@ class Solution {
                 max=i;
             }
         }
-        for(int i=min;i>0;i--){
-            if(min%i==0 && max%i==0){
-                return i;
-            }
+        int a=max,b=min;
+        while(b>0){
+            int temp=a;
+            a=b;
+            b=temp%b;
         }
-        return 0;
+        return a;
     }
 }
